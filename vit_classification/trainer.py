@@ -1,6 +1,7 @@
 import numpy as np
 import torch
 from vit import ViT
+from torch.nn import functional as F
 
 class Trainer:
     def __init__(self, model, train_dataloader, test_dataloader, learning_rate = 0.001, batch_size = 100, 
@@ -49,7 +50,7 @@ class Trainer:
 
         
         # TODO - Compute cross entropy loss between predictions and labels. 
-        loss = None
+        loss = F.cross_entropy(predictions, labels)
         
 
         return loss
@@ -90,4 +91,4 @@ class Trainer:
                 print( "Train accuracy: %f" % (train_accuracy))
             
             if i % self.save_every == 0:
-                torch.save(self.model.state_dict(), 'checkpoints/model_{}.pth'.format(i))
+                torch.save(self.model.state_dict(), '/notebooks/Homework/transformers/vit_classification/checkpoints/model_{}.pth'.format(i))
